@@ -10,7 +10,7 @@ class Publicacao(SQLModel, table= True):
     legenda: str | None = Field(default=None)
     likes: int = Field(default=0)
     caminho_imagem: str
-    data_criacao: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    data_criacao: datetime = Field(default_factory=lambda: datetime.now())
     
     autor: Usuario = Relationship(back_populates='Publicacao')
     albuns: List['AlbumPub'] = Relationship(back_populates='Publicacao')
