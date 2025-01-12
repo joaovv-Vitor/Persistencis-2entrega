@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, Field, Relationship
-from datetime import datetime 
+from datetime import datetime, timezone 
 from models import Usuario, AlbumPub
 from typing import List
 
@@ -9,9 +9,8 @@ class Publicacao(SQLModel, table= True):
     id_autor: int | None = Field(foreign_key="usuario.id_user")
     legenda: str | None = Field(default=None)
     likes: int = Field(default=0)
-    id_autor: int 
     caminho_imagem: str
-    data_criacao: datetime
+    data_criacao: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     
     autor: Usuario = Relationship(back_populates='Publicacao')
     albuns: List['AlbumPub'] = Relationship(back_populates='Publicacao')
