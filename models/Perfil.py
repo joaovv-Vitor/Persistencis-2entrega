@@ -2,8 +2,8 @@ from sqlmodel  import SQLModel, Field, Relationship
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .albuns import Albuns
-    from .publicacoes import Publicacao
+    from .album import Album, albumbasePerfil
+    from .publicacao import Publicacao
 
 
 class PerfilBase(SQLModel):
@@ -12,4 +12,12 @@ class PerfilBase(SQLModel):
     nome: str
     bio: str
     
+class perfil(PerfilBase, table = True):
+    albuns: list['Album'] = Relationship(back_populates='perfil')
+    Publicacao: list['Publicacao'] = Relationship(back_populates='perfil')
+
+
+class perfilBaseAlbumPublicao(PerfilBase):
+    perfil: PerfilBase | None
+    album: list[albumbasePerfil] = None
 
