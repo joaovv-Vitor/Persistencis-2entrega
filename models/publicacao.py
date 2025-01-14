@@ -17,7 +17,7 @@ class PubAlbum(SQLModel, table=True):
     id_album: int = Field(default=None, foreign_key='Album.id',
                           primary_key=True)
 
-    __table_args = (
+    __table_args__ = (
         UniqueConstraint('id_pub', 'id_album'),
     )
 
