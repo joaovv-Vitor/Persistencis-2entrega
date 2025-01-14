@@ -1,17 +1,21 @@
 from datetime import datetime, timezone
-from typing import List
+from typing import TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel
 
 from .album import Album
 from .Perfil import Perfil
 
+if TYPE_CHECKING:
+    from .album import album
+    from .Perfil import perfil
+
 
 class PubAlbum(SQLModel, table=True):
     id_pub: int = Field(default=None,
-                         foreign_key='Publicacao.id', primary_key=True)
+                         foreign_key='Publicacao.id', primary_key=True, unique=True)
     id_album: int = Field(default=None,
-                          foreign_key='Album.id', primary_key=True)
+                          foreign_key='Album.id', primary_key=True, unique= True)
 
 
 class PubBase(SQLModel):
@@ -25,10 +29,10 @@ class PubBase(SQLModel):
 
 class Publicacao(PubBase, table=True):
     user_id: int = Field(foreign_key='perfil.id')
-    user: Perfil = Relationship(back_populates='pubs')
-    albuns: List[Album] = Relationship(link_model=PubAlbum)
+    user: perfil = Relationship(back_populates='Publicacao')
+    albuns: list[album] = Relationship(link_model=PubAlbum)
 
 
 class PubCompleta(PubBase):
-    user: Perfil | None
-    albuns: List[Album] | None
+    user: perfil | None
+    albuns: list[album] | None
