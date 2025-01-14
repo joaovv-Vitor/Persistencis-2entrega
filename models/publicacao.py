@@ -4,7 +4,7 @@ from typing import List
 from sqlmodel import Field, Relationship, SQLModel
 
 from .albuns import Album
-from .usuarios import Usuario
+from .perfis import Perfil
 
 
 class PubAlbum(SQLModel, table=True):
@@ -24,11 +24,11 @@ class PubBase(SQLModel):
 
 
 class Publicacao(PubBase, table=True):
-    user_id: int = Field(foreign_key='user.id')
-    user: Usuario = Relationship(back_populates='pubs')
+    user_id: int = Field(foreign_key='perfil.id')
+    user: Perfil = Relationship(back_populates='pubs')
     albuns: List[Album] = Relationship(link_model=PubAlbum)
 
 
 class PubCompleta(PubBase):
-    user: Usuario | None
+    user: Perfil | None
     albuns: List[Album] | None
