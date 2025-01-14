@@ -1,19 +1,34 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List
 
 from sqlmodel import Field, Relationship, SQLModel
 
-from models import AlbumPub, Usuario
+from .albuns import Album
+from .perfis import Perfil
 
 
-class Publicacao(SQLModel, table=True):
-    __tablename__ = 'Publicacoes'
-    id_pub: int | None = Field(default=None, primary_key=True)
-    id_autor: int | None = Field(foreign_key="usuario.id_user")
+class PubAlbum(SQLModel, table=True):
+    id_pub: int = Field(default=None,
+                         foreign_key='Publicacao.id', primary_key=True)
+    id_album: int = Field(default=None,
+                          foreign_key='Album.id', primary_key=True)
+
+
+class PubBase(SQLModel):
+    id: int | None = Field(default=None, primary_key=True)
     legenda: str | None = Field(default=None)
-    likes: int = Field(default=0)
+    curtidas: int = Field(default=0)
+    data_criacao: datetime = Field(default_factory=lambda:
+                               datetime.now(timezone.utc))
     caminho_imagem: str
-    data_criacao: datetime = Field(default_factory=lambda: datetime.now())
 
-    autor: Usuario = Relationship(back_populates='Publicacao')
-    albuns: List['AlbumPub'] = Relationship(back_populates='Publicacao')
+
+class Publicacao(PubBase, table=True):
+    user_id: int = Field(foreign_key='perfil.id')
+    user: Perfil = Relationship(back_populates='pubs')
+    albuns: List[Album] = Relationship(link_model=PubAlbum)
+
+
+class PubCompleta(PubBase):
+    user: Perfil | None
+    albuns: List[Album] | None
