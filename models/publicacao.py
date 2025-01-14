@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship, SQLModel, UniqueConstraint
 
 from .album import album
 from .Perfil import perfil
@@ -13,9 +13,13 @@ if TYPE_CHECKING:
 
 class PubAlbum(SQLModel, table=True):
     id_pub: int = Field(default=None, foreign_key='Publicacao.id',
-                        primary_key=True, unique=True)
+                        primary_key=True)
     id_album: int = Field(default=None, foreign_key='Album.id',
-                          primary_key=True, unique=True)
+                          primary_key=True)
+
+    __table_args = (
+        UniqueConstraint('id_pub', 'id_album'),
+    )
 
 
 class PubBase(SQLModel):
