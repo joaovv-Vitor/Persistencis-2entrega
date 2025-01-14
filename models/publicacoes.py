@@ -4,7 +4,7 @@ from typing import List
 from sqlmodel import Field, Relationship, SQLModel
 
 from .albuns import Album
-from .perfis import Perfil
+from .Perfis import Perfil
 
 
 class PubAlbum(SQLModel, table=True):
