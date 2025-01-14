@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel
 
-from .album import Album
-from .Perfil import Perfil
+from .album import album
+from .Perfil import perfil
 
 if TYPE_CHECKING:
     from .album import album
