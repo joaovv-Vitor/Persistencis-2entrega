@@ -3,8 +3,8 @@ from typing import List
 
 from sqlmodel import Field, Relationship, SQLModel
 
-from .albuns import Album
-from .Perfis import Perfil
+from .album import Album
+from .Perfil import Perfil
 
 
 class PubAlbum(SQLModel, table=True):
