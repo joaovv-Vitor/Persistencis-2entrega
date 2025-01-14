@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .albuns import Albuns
-    from .publicacao import Publicacao
+    from .publicacoes import Publicacao
 
 
 class PerfilBase(SQLModel):
