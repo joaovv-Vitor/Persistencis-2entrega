@@ -12,10 +12,10 @@ if TYPE_CHECKING:
 
 
 class PubAlbum(SQLModel, table=True):
-    id_pub: int = Field(default=None,
-                         foreign_key='Publicacao.id', primary_key=True, unique=True)
-    id_album: int = Field(default=None,
-                          foreign_key='Album.id', primary_key=True, unique= True)
+    id_pub: int = Field(default=None, foreign_key='Publicacao.id',
+                        primary_key=True, unique=True)
+    id_album: int = Field(default=None, foreign_key='Album.id',
+                          primary_key=True, unique=True)
 
 
 class PubBase(SQLModel):
