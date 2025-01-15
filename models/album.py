@@ -18,4 +18,4 @@ class Album(AlbumBase):
 
 
 class AlbumbasePerfil(AlbumBase):
-    perfil: PerfilBase
+    perfil: 'PerfilBase'

@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel, UniqueConstraint
 
-from .album import album, albumbasePerfil
-from .Perfil import PerfilBase, perfil
+from .album import Album, AlbumbasePerfil
+from .Perfil import PerfilBase, Perfil
 
 if TYPE_CHECKING:
-    from .album import album
-    from .Perfil import perfil
+    from .album import Album
+    from .Perfil import Perfil
 
 
 class PubAlbum(SQLModel, table=True):
@@ -32,11 +32,11 @@ class PubBase(SQLModel):
 
 
 class Publicacao(PubBase, table=True):
-    user_id: int = Field(foreign_key='perfil.id')
-    user: 'perfil' = Relationship(back_populates='Publicacao')
-    albuns: list[album] = Relationship(link_model=PubAlbum)
+    user_id: int = Field(foreign_key='Perfil.id')
+    user: 'Perfil' = Relationship(back_populates='Publicacao')
+    albuns: list[Album] = Relationship(link_model=PubAlbum)
 
 
 class PubCompleta(PubBase):
     user: PerfilBase | None
-    albuns: list[albumbasePerfil] | None
+    albuns: list[AlbumbasePerfil] | None
