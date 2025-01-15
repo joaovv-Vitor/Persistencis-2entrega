@@ -27,6 +27,7 @@ def get_session() -> Session:
     return Session(engine)
 
 
+# dar suporte/integridade de chaves para o sqlite
 @event.listens_for(Engine, 'connect')
 def set_sqlite_pragma(dbapi_connection, connection_record):
     if type(dbapi_connection) is sqlite3.Connection:
