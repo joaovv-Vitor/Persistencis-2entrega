@@ -12,10 +12,10 @@ class AlbumBase(SQLModel):
     capa: str
 
 
-class album(AlbumBase):
+class Album(AlbumBase):
     perfil_id: int = Field(foreign_key='user.id')
     perfil: 'Perfil' = Relationship(back_populates='albuns')
 
 
-class albumbasePerfil(AlbumBase):
+class AlbumbasePerfil(AlbumBase):
     perfil: PerfilBase

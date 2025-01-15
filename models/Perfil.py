@@ -14,11 +14,11 @@ class PerfilBase(SQLModel):
     bio: str
 
 
-class perfil(PerfilBase, table=True):
+class Perfil(PerfilBase, table=True):
     albuns: list['Album'] = Relationship(back_populates='perfil')
     Publicacao: list['Publicacao'] = Relationship(back_populates='perfil')
 
 
-class perfilBaseAlbumPublicao(PerfilBase):
+class PerfilBaseAlbumPublicao(PerfilBase):
     perfil: PerfilBase | None
     album: list[albumbasePerfil] = None
