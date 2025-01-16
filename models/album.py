@@ -13,7 +13,7 @@ class AlbumBase(SQLModel):
 
 
 class Album(AlbumBase):
-    perfil_id: int = Field(foreign_key='user.id')
+    perfil_id: int = Field(foreign_key='Perfil.id')
     perfil: 'Perfil' = Relationship(back_populates='albuns')
 
 
