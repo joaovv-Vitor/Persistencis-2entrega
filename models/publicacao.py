@@ -3,13 +3,21 @@ from typing import TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel, UniqueConstraint
 
-from .album import Album, AlbumbasePerfil
-from .Perfil import Perfil, PerfilBase
-
 if TYPE_CHECKING:
-    from .album import Album
-    from .Perfil import Perfil
-    from .pubAlbum import  PubAlbum
+    from .Perfil import Perfil, PerfilBase
+    from .album import Album, AlbumbasePerfil
+    # from .pubAlbum import PubAlbum
+
+
+class PubAlbum(SQLModel, table=True):
+    id_pub: int = Field(default=None, foreign_key='Publicacao.id',
+                        primary_key=True)
+    id_album: int = Field(default=None, foreign_key='Album.id',
+                          primary_key=True)
+
+    __table_args__ = (
+        UniqueConstraint('id_pub', 'id_album'),
+    )
 
 
 class PubBase(SQLModel):
@@ -28,5 +36,5 @@ class Publicacao(PubBase, table=True):
 
 
 class PubCompleta(PubBase):
-    user: PerfilBase | None
-    albuns: list[AlbumbasePerfil] | None
+    user: 'PerfilBase' = None
+    albuns: list['AlbumbasePerfil'] = None

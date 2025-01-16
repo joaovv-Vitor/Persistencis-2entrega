@@ -1,12 +1,11 @@
 from typing import TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel
+
 if TYPE_CHECKING:
     from .Perfil import Perfil, PerfilBase
-    from .publicacao import Publicacao
-    from .pubAlbum import PubAlbum
-
-
+    from .publicacao import Publicacao, PubAlbum
+    
 class AlbumBase(SQLModel):
     id: int | None = Field(default=None, primary_key=True)
     nome: str

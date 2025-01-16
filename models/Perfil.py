@@ -6,7 +6,6 @@ if TYPE_CHECKING:
     from .album import Album, AlbumbasePerfil
     from .publicacao import Publicacao
 
-
 class PerfilBase(SQLModel):
     id: int | None = Field(default=None, primary_key=True)
     email: str
@@ -16,10 +15,10 @@ class PerfilBase(SQLModel):
 
 
 class Perfil(PerfilBase, table=True):
-    albuns: list['Album'] = Relationship(back_populates='Perfil')
+    albuns: list['Album'] = Relationship(back_populates='perfil')
     pubs: list['Publicacao'] = Relationship(back_populates='user')
 
 
 class PerfilBaseAlbumPublicao(PerfilBase):
-    perfil: PerfilBase | None
+    perfil: PerfilBase = None
     albuns: list['AlbumbasePerfil'] = None
