@@ -9,17 +9,7 @@ from .Perfil import Perfil, PerfilBase
 if TYPE_CHECKING:
     from .album import Album
     from .Perfil import Perfil
-
-
-class PubAlbum(SQLModel, table=True):
-    id_pub: int = Field(default=None, foreign_key='Publicacao.id',
-                        primary_key=True)
-    id_album: int = Field(default=None, foreign_key='Album.id',
-                          primary_key=True)
-
-    __table_args__ = (
-        UniqueConstraint('id_pub', 'id_album'),
-    )
+    from .pubAlbum import  PubAlbum
 
 
 class PubBase(SQLModel):
@@ -34,7 +24,7 @@ class PubBase(SQLModel):
 class Publicacao(PubBase, table=True):
     user_id: int = Field(foreign_key='Perfil.id')
     user: 'Perfil' = Relationship(back_populates='pubs')
-    albuns: list[Album] = Relationship(link_model=PubAlbum)
+    albuns: list['Album'] = Relationship(link_model=PubAlbum, back_populates='pubs')
 
 
 class PubCompleta(PubBase):
