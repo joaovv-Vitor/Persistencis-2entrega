@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from sqlmodel import Field, Relationship, SQLModel, UniqueConstraint
 
 from .album import Album, AlbumbasePerfil
-from .Perfil import PerfilBase, Perfil
+from .Perfil import Perfil, PerfilBase
 
 if TYPE_CHECKING:
     from .album import Album

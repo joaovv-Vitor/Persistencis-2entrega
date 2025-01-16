@@ -15,7 +15,6 @@ class PerfilBase(SQLModel):
     __table_args__ = (UniqueConstraint('email'),)
 
 
-
 class Perfil(PerfilBase, table=True):
     albuns: list['Album'] = Relationship(back_populates='Perfil')
     pubs: list['Publicacao'] = Relationship(back_populates='user')
