@@ -33,7 +33,7 @@ class PubBase(SQLModel):
 
 class Publicacao(PubBase, table=True):
     user_id: int = Field(foreign_key='Perfil.id')
-    user: 'Perfil' = Relationship(back_populates='Publicacao')
+    user: 'Perfil' = Relationship(back_populates='pubs')
     albuns: list[Album] = Relationship(link_model=PubAlbum)
 
 

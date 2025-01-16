@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship, SQLModel, UniqueConstraint
 
 if TYPE_CHECKING:
     from .album import Album, AlbumbasePerfil
@@ -9,16 +9,18 @@ if TYPE_CHECKING:
 
 class PerfilBase(SQLModel):
     id: int | None = Field(default=None, primary_key=True)
-    email: str = Field(unique=True)
+    email: str
     nome: str
     bio: str
+    __table_args__ = (UniqueConstraint('email'),)
+
 
 
 class Perfil(PerfilBase, table=True):
     albuns: list['Album'] = Relationship(back_populates='Perfil')
-    Publicacao: list['Publicacao'] = Relationship(back_populates='Perfil')
+    pubs: list['Publicacao'] = Relationship(back_populates='user')
 
 
 class PerfilBaseAlbumPublicao(PerfilBase):
     perfil: PerfilBase | None
-    album: list['AlbumbasePerfil'] = None
+    albuns: list['AlbumbasePerfil'] = None
